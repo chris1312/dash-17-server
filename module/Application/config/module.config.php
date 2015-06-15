@@ -70,6 +70,8 @@ return array(
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'Application\Service\DataManager' => 'Application\Service\DataManagerFactory',
+            'Application\DataProvider\Gerrit' => 'Application\DataProvider\GerritFactory',
+            'Application\DataProvider\Teamcity' => 'Application\DataProvider\TeamcityFactory',
             'Application\DataProvider\Youtrack' => 'Application\DataProvider\YoutrackFactory',
         ),
     ),

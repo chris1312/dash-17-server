@@ -28,8 +28,13 @@ return [
                 'team' => 'portal'
             ],
         ],
-//        'kibana' => [
-//
-//        ]
+        'teamcity' => [
+            [
+                'query' => 'testOccurrences?locator=currentlyFailing:true',
+                'title' => 'Failing builds count',
+                'type' => 'count',
+                'team' => 'all',
+            ]
+        ]
     ],
 ];

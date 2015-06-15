@@ -44,9 +44,10 @@ class Youtrack implements DataProviderInterface
         $returned = [];
 
         foreach($this->dataSets as $ds) {
-            if($teamId != $ds['team']){
+            if (!empty($teamId) && $teamId != $ds['team']) {
                 continue;
             }
+
             $query = [
                 'filter' => $ds['query'],
             ];
