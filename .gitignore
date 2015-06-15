@@ -7,7 +7,6 @@ nbproject
 .idea
 .project
 .settings
-composer.lock
 vendor
 composer.phar
 config/config.php

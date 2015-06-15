@@ -1,0 +1,14 @@
+<?php
+/**
+ * Override this!
+ *
+ */
+return [
+    'provider_access' => [
+        'provider name' => [
+            'base_url' => 'http://base-url',
+            'login' => 'username',
+            'password' => 'password',
+        ],
+    ]
+];

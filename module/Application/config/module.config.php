@@ -20,6 +20,16 @@ return array(
                     ),
                 ),
             ),
+            'dashboard' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/dashboard',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Rest\Dashboard',
+//                        'action'     => 'get',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -59,6 +69,8 @@ return array(
         ),
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
+            'Application\Service\DataManager' => 'Application\Service\DataManagerFactory',
+            'Application\DataProvider\Youtrack' => 'Application\DataProvider\YoutrackFactory',
         ),
     ),
     'translator' => array(
@@ -73,7 +85,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Rest\Dashboard' => 'Application\Controller\Rest\DashboardController',
         ),
     ),
     'view_manager' => array(
@@ -90,6 +103,9 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+        'strategies' => array(
+            'ViewJsonStrategy',
         ),
     ),
     // Placeholder for console routes
