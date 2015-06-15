@@ -10,8 +10,7 @@ namespace Application\DataProvider;
 
 
 use GuzzleHttp\Client;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\{FactoryInterface, ServiceLocatorInterface};
 
 class YoutrackFactory implements FactoryInterface
 {

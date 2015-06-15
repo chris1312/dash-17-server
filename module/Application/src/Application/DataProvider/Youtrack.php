@@ -2,7 +2,6 @@
 namespace Application\DataProvider;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 
 class Youtrack implements DataProviderInterface
 {
@@ -22,7 +21,8 @@ class Youtrack implements DataProviderInterface
         $this->dataSets = $dataSets;
     }
 
-    private function getPreparedClient(){
+    private function getPreparedClient() : Client
+    {
         $client = new Client([
             'base_uri' => $this->accessConfig['base_url'],
             'cookies' => true,
