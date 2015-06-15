@@ -4,13 +4,17 @@ return [
     'providers' => [
         'youtrack' => [
             [
-                'query' => '#show-stoppers',
+                'query' => 'Priority: Critical #Unresolved',
                 'type' => 'count',
-                'title' => 'Show stoppers count',
+                'title' => 'Criticals count',
+                'team' => 'portal',
             ],
             [
-
-            ]
+                'query' => '#Show-stopper #Unresolved',
+                'type' => 'count',
+                'title' => 'Show-stoppers count',
+                'team' => 'payroll'
+            ],
         ],
 //        'kibana' => [
 //

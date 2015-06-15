@@ -22,17 +22,46 @@ class Youtrack implements DataProviderInterface
         $this->dataSets = $dataSets;
     }
 
-    public function fetch()
-    {
-        $client = new Client(['base_uri' => $this->accessConfig['base_url']]);
+    private function getPreparedClient(){
+        $client = new Client([
+            'base_uri' => $this->accessConfig['base_url'],
+            'cookies' => true,
+            'headers' => ['Accept' => 'application/json'],
+        ]);
 
-        $response = $client->post('user/login', [
+        $client->post('user/login', [
             'query' => [
                 'login' => $this->accessConfig['login'],
                 'password' => $this->accessConfig['password']
             ]
         ]);
-        
-        return 'some superb data!';
+        return $client;
+    }
+
+    public function fetch()
+    {
+        $client = $this->getPreparedClient();
+        $returned = [];
+
+        foreach($this->dataSets as $ds) {
+            $query = [
+                'filter' => $ds['query'],
+            ];
+            if($ds['type'] == 'count'){
+                $query['with'] = 'id';
+            }
+            $response = $client->get('issue', ['query' => $query]);
+            $decodedResponse = json_decode($response->getBody(), true);
+            $iterationValue = [
+                'title' => $ds['title'],
+                'type' => $ds['type'],
+            ];
+            if($ds['type'] == 'count'){
+                $iterationValue['value'] = count($decodedResponse['issue']);
+            }
+            $returned[] = $iterationValue;
+        }
+
+        return $returned;
     }
 }
