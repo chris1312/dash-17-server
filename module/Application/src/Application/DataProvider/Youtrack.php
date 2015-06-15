@@ -48,18 +48,15 @@ class Youtrack implements DataProviderInterface
                 'filter' => $ds['query'],
             ];
             if($ds['type'] == 'count'){
-                $query['with'] = 'id';
+                $response = $client->get('issue/count', ['query' => $query]);
             }
-            $response = $client->get('issue', ['query' => $query]);
+
             $decodedResponse = json_decode($response->getBody(), true);
-            $iterationValue = [
+
+            $returned[] = [
                 'title' => $ds['title'],
                 'type' => $ds['type'],
-            ];
-            if($ds['type'] == 'count'){
-                $iterationValue['value'] = count($decodedResponse['issue']);
-            }
-            $returned[] = $iterationValue;
+            ] + $decodedResponse;
         }
 
         return $returned;
