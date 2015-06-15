@@ -12,6 +12,6 @@ class DashboardController extends AbstractRestfulController
         /** @var \Application\Service\DataManager $service */
         $service = $this->getServiceLocator()->get('Application\Service\DataManager');
 
-        return new JsonModel($service->getData());
+        return new JsonModel($service->getData($this->params()->fromQuery('teamId', '')));
     }
 }

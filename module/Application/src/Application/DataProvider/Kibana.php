@@ -3,7 +3,7 @@ namespace Application\DataProvider;
 
 class Kibana implements DataProviderInterface
 {
-    public function fetch()
+    public function fetch(string $teamId)
     {
         // TODO: Implement fetch() method.
     }

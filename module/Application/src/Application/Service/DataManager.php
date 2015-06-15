@@ -17,7 +17,7 @@ class DataManager
         $this->serviceLocator = $serviceLocator;
     }
 
-    public function getData()
+    public function getData(string $teamId)
     {
         $config = $this->serviceLocator->get('config');
 
@@ -28,7 +28,7 @@ class DataManager
 
             /** @var DataProviderInterface $service */
             $instance = $this->serviceLocator->get($serviceName);
-            $result[$provider] = $instance->fetch();
+            $result[$provider] = $instance->fetch($teamId);
         }
 
         return $result;

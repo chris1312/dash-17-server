@@ -38,12 +38,15 @@ class Youtrack implements DataProviderInterface
         return $client;
     }
 
-    public function fetch()
+    public function fetch(string $teamId)
     {
         $client = $this->getPreparedClient();
         $returned = [];
 
         foreach($this->dataSets as $ds) {
+            if($teamId != $ds['team']){
+                continue;
+            }
             $query = [
                 'filter' => $ds['query'],
             ];
@@ -56,6 +59,7 @@ class Youtrack implements DataProviderInterface
             $returned[] = [
                 'title' => $ds['title'],
                 'type' => $ds['type'],
+                'team' => $ds['team'],
             ] + $decodedResponse;
         }
 

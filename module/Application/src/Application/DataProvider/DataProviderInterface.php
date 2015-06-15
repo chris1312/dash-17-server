@@ -3,5 +3,5 @@ namespace Application\DataProvider;
 
 interface DataProviderInterface
 {
-    public function fetch();
+    public function fetch(string $teamId);
 }
