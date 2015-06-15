@@ -24,6 +24,8 @@ class YoutrackFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new Youtrack(new Client(), $serviceLocator->get('config')['provider_access']['youtrack']);
+        $config = $serviceLocator->get('config');
+
+        return new Youtrack(new Client(), $config['provider_access']['youtrack'], $config['providers']['youtrack']);
     }
 }
