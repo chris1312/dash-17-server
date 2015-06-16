@@ -63,7 +63,7 @@ class Teamcity implements DataProviderInterface
 
             $list[] = [
                 'title' => $dataSet['title'],
-                'count' => $data['count'],
+                'value' => $data['count'],
                 'type' => 'count',
             ];
         }
