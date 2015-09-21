@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vsdev
- * Date: 6/15/15
- * Time: 5:54 PM
- */
-
 namespace Application\DataProvider;
 
-
 use GuzzleHttp\Client;
+use Zend\Json\Json;
 
 class Gerrit implements DataProviderInterface
 {
@@ -23,7 +16,6 @@ class Gerrit implements DataProviderInterface
     private $accessConfig;
 
     /**
-     * @param Client $client
      * @param array $accessConfig
      * @param array $dataSets
      */
@@ -33,31 +25,63 @@ class Gerrit implements DataProviderInterface
         $this->dataSets = $dataSets;
     }
 
-    private function getClient()
+    /**
+     * @return Client
+     */
+    private function getClient() : Client
     {
         if (!$this->client) {
             $this->client = new Client([
                 'base_uri' => $this->accessConfig['base_url'],
                 'cookies' => true,
-                'headers' => ['Accept' => 'application/json']
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-type' => 'application/json'
+                ],
+                'auth' => [
+                    $this->accessConfig['login'], $this->accessConfig['password'], 'digest'
+                ]
             ]);
         }
 
         return $this->client;
     }
 
-    public function fetch()
+    private function getRequest(string $url) : array
     {
+        $response = $this->getClient()->get($url);
+        $contents = $response->getBody()->getContents();
+        $contents = substr($contents, strpos($contents, "\n") + 1);
 
+        return Json::decode($contents, Json::TYPE_ARRAY);
+    }
 
-//        $response = $this->getClient()->get('projects', [
-//            'auth' => [
-//                $this->accessConfig['login'], $this->accessConfig['password'], 'digest',
-//            ]
-//        ]);
-//
-//        $contents = $response->getBody()->getContents();
-//
-//        die(var_export($contents));
+    public function fetch(string $teamId)
+    {
+        $list = [];
+
+        foreach($this->dataSets as $dataSet) {
+            if (!empty($teamId) && $teamId != $dataSet['team']) {
+                continue;
+            }
+
+            $projectsData = $this->getRequest('projects/?d');
+            $searchText = $dataSet['project_description_filter'];
+
+            $projects = array_keys(array_filter($projectsData, function (array $project) use ($searchText) {
+                return stristr($project['description'], $searchText) !== false;
+            }));
+
+            $url = sprintf($dataSet['query'], implode('|', $projects));
+            $unreviewedChanges = $this->getRequest($url);
+
+            $list[] = [
+                'title' => $dataSet['title'],
+                'value' => count($unreviewedChanges),
+                'type' => 'count',
+            ];
+        }
+
+        return $list;
     }
 }
