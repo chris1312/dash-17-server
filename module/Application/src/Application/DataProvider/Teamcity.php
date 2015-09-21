@@ -53,21 +53,45 @@ class Teamcity implements DataProviderInterface
         $list = [];
 
         foreach ($this->dataSets as $dataSet) {
-            $response = $this->getPreparedClient()->get($dataSet['query'], [
-                'auth' => [
-                    $this->accessConfig['login'], $this->accessConfig['password'],
-                ]
-            ]);
+            if (!empty($teamId) && $teamId != $dataSet['team']) {
+                continue;
+            }
 
-            $data = Json::decode($response->getBody()->getContents(), Json::TYPE_ARRAY);
+            $counter = $this->getTeamFailedBuilds($dataSet);
 
             $list[] = [
                 'title' => $dataSet['title'],
-                'value' => $data['count'],
+                'team' => $dataSet['team'],
+                'value' => $counter,
                 'type' => 'count',
             ];
         }
 
         return $list;
+    }
+
+
+    private function getTeamFailedBuilds(array $dataSet)
+    {
+        $counter = 0;
+
+        foreach($dataSet['queries'] as $query) {
+            $response = $this->getPreparedClient()->get($query, [
+                'auth' => [
+                    $this->accessConfig['login'], $this->accessConfig['password'],
+                ]
+            ]);
+            $data = Json::decode($response->getBody()->getContents(), Json::TYPE_ARRAY);
+
+            if ($data['count'] == 0) {
+                continue;
+            }
+
+            if ($data['build'][0]['status'] !== 'SUCCESS') {
+                $counter++;
+            }
+        }
+
+        return $counter;
     }
 }

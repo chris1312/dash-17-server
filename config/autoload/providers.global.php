@@ -56,10 +56,38 @@ return [
         ],
         'teamcity' => [
             [
-                'query' => 'testOccurrences?locator=currentlyFailing:true',
+                'queries' => [
+                    'builds?locator=count:1,project:myvisma_apps_portal',
+                    'builds?locator=count:1,project:myvisma_app_portal',
+                    'builds?locator=count:1,project:myvisma_app_auth',
+                    'builds?locator=count:1,project:myvisma_module_sso',
+                    'builds?locator=count:1,project:visma_module_errorhandling',
+                    'builds?locator=count:1,project:visma_module_locale',
+                    'builds?locator=count:1,project:myvisma_module_session',
+                    'builds?locator=count:1,project:myvisma',
+                    'builds?locator=count:1,project:myvisma_app_MyvismaAppYearPlanner',
+                    'builds?locator=count:1,project:myvisma_app_MyvismaAppYearPlannerUi',
+                    'builds?locator=count:1,project:myvisma_app_MyvismaAppDocuments',
+                    'builds?locator=count:1,project:myvisma_app_MyvismaAppDocumentsUi',
+                    'builds?locator=count:1,project:myvisma_module_authentication',
+                    'builds?locator=count:1,project:visma_module_restproxy',
+                    'builds?locator=count:1,project:myvisma_module_shared_data_client',
+                    'builds?locator=count:1,project:myvisma_app_MyvismaAppIdp',
+                    'builds?locator=count:1,project:myvisma_module_analytics',
+                ],
                 'title' => 'Failing builds count',
                 'type' => 'count',
-                'team' => 'all',
+                'team' => 'portal',
+            ],
+            [
+                'queries' => [
+                    'builds?locator=count:1,project:myvisma_app_MyvismaAppMessaging',
+                    'builds?locator=count:1,project:myvisma_app_payroll',
+                    'builds?locator=count:1,project:myvisma_app_MyvismaAppPayslips',
+                ],
+                'title' => 'Failing builds count',
+                'type' => 'count',
+                'team' => 'payroll',
             ]
         ],
         'gerrit' => [
