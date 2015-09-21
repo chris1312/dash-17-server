@@ -69,7 +69,9 @@ class Gerrit implements DataProviderInterface
             $searchText = $dataSet['project_description_filter'];
 
             $projects = array_keys(array_filter($projectsData, function (array $project) use ($searchText) {
-                return stristr($project['description'], $searchText) !== false;
+                $haystack = isset($project['description']) ? $project['description'] : '';
+
+                return stristr($haystack, $searchText) !== false;
             }));
 
             $url = sprintf($dataSet['query'], implode('|', $projects));
