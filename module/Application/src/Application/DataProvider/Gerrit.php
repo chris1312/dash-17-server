@@ -78,6 +78,7 @@ class Gerrit implements DataProviderInterface
             $unreviewedChanges = $this->getRequest($url);
 
             $list[] = [
+                'team' => $dataSet['team'],
                 'title' => $dataSet['title'],
                 'value' => count($unreviewedChanges),
                 'type' => 'count',
