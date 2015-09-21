@@ -83,6 +83,19 @@ class Gerrit implements DataProviderInterface
                 'value' => count($unreviewedChanges),
                 'type' => 'count',
             ];
+
+            $titles = [];
+
+            foreach ($unreviewedChanges as $item) {
+                $titles[] = $item['subject'];
+            }
+
+            $list[] = [
+                'team' => $dataSet['team'],
+                'title' => $dataSet['title'],
+                'value' => $titles,
+                'type' => 'list',
+            ];
         }
 
         return $list;
