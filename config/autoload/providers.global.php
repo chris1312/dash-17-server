@@ -30,25 +30,25 @@ return [
     'providers' => [
         'youtrack' => [
             [
-                'query' => 'Priority: Critical #Unresolved project: MV, MVMessaging, MVPayslips, {MVPayroll UI}',
+                'query' => 'Priority: Critical #Unresolved #{Dash-17 team payroll}',
                 'type' => 'count',
                 'title' => 'Criticals count',
                 'team' => 'payroll',
             ],
             [
-                'query' => 'Priority: Critical #Unresolved project: MVPortal, MVAuth, MVSSO, MVErrorHandling, MVLocale, MVSession, MYV, MVNews, MVYearPlanner, MVDocuments, MvAuthentication, MvRestProxy, MvRestProxyServer',
+                'query' => 'Priority: Critical #Unresolved #{Dash-17 team portal}',
                 'type' => 'count',
                 'title' => 'Criticals count',
                 'team' => 'portal',
             ],
             [
-                'query' => '#Show-stopper #Unresolved project: MV, MVMessaging, MVPayslips, {MVPayroll UI}',
+                'query' => '#Show-stopper #Unresolved #{Dash-17 team payroll}',
                 'type' => 'count',
                 'title' => 'Show-stoppers count',
                 'team' => 'payroll'
             ],
             [
-                'query' => '#Show-stopper #Unresolved project: MVPortal, MVAuth, MVSSO, MVErrorHandling, MVLocale, MVSession, MYV, MVNews, MVYearPlanner, MVDocuments, MvAuthentication, MvRestProxy, MvRestProxyServer',
+                'query' => '#Show-stopper #Unresolved #{Dash-17 team portal}',
                 'type' => 'count',
                 'title' => 'Show-stoppers count',
                 'team' => 'portal'
