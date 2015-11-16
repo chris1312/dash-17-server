@@ -54,7 +54,7 @@ return [
                     'builds?locator=count:1,project:myvisma_app_MyvismaAppYearPlanner',
                     'builds?locator=count:1,project:myvisma_app_MyvismaAppYearPlannerUi',
                     'builds?locator=count:1,project:myvisma_app_MyvismaAppDocuments',
-                    'builds?locator=count:1,project:myvisma_app_MyvismaAppDocumentsUi',
+                    //'builds?locator=count:1,project:myvisma_app_MyvismaAppDocumentsUi',
                     'builds?locator=count:1,project:myvisma_module_authentication',
                     'builds?locator=count:1,project:visma_module_restproxy',
                     'builds?locator=count:1,project:myvisma_module_shared_data_client',
